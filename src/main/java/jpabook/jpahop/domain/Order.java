@@ -34,6 +34,10 @@ public class Order {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 
+	@OneToOne
+	@JoinColumn(name = "DELIVERY_ID")
+	private Delivery delivery; // 주문 - 배송 일대일 연관관계 매핑
+
 	public void addOrderItem(OrderItem orderItem){ // 편의성 메소드를 만들자.
 		orderItems.add(orderItem);
 		orderItem.setOrder(this);
