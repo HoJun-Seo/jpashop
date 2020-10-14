@@ -19,14 +19,14 @@ public class Order extends BaseEntity{
 	//아예 주문 클래스에서 Member 측의 데이터를 곧장 가져올 수 있게끔 만들면 훨씬 간편하고 객체지향적으로
 	//프로그램을 코딩할 수 있다.
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MEMBER_ID") // 연관관계 매핑
 	private Member member;
 	// 가급적이면 설계할 때는 단뱡향으로 연관관계를 매핑하자, 양방향은 나중에 필요할 때 매핑해도 늦지않다.
 
 	// Member - Order 관계와는 반대로 Order - OrderItem 관계에서는 양방향 매핑이 비즈니스 적으로 상당히 가치 있다고 볼 수 있다.
 	// 하나의 주문에서 몇가지 상품이 주문 되었는지 내역을 찾을 경우가 많기도 하기 때문
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	private LocalDateTime orderDate;
@@ -34,7 +34,7 @@ public class Order extends BaseEntity{
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "DELIVERY_ID")
 	private Delivery delivery; // 주문 - 배송 일대일 연관관계 매핑
 
