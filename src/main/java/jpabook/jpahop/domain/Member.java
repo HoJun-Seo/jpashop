@@ -11,9 +11,9 @@ public class Member extends BaseEntity{
 	@Column(name = "MEMBER_ID")
 	private Long id;
 	private String name;
-	private String city;
-	private String street;
-	private String zipcode;
+
+	@Embedded
+	private Address address;
 
 	// 대부분의 경우 Member 에 Order 클래스에 객체를 선언하여 양방향 매핑을 하는 것이 그닥 좋은 설계가 아니다.
 	// 테이블 입장에서 쿼리를 사용한다고 해도 MEMBER_ID 와 같은 외래 키를 통해 결과를 얻던가 하게 된다.
@@ -38,35 +38,19 @@ public class Member extends BaseEntity{
 		this.name = name;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-
 	public List<Order> getOrders() {
 		return orders;
 	}
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }
